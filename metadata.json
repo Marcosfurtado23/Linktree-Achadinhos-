@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Achadinhos da Lu",
+  "description": "Uma página de links e ofertas da Shopee extremamente fiel, interativa e elegante.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

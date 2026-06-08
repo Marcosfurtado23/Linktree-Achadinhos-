@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Catch-all safety gate denying anonymous writes/reads by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Config Collection rules
+    match /configs/{configId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(configId);
+    }
+
+    // Products Collection rules 
+    match /products/{productId} {
+      allow read: if true;
+      allow list: if true;
+      allow write: if isSignedIn() && isValidId(productId);
+    }
+
+    // Analytics Collection rules
+    match /analytics/{docId} {
+      allow read: if true;
+      allow write: if true; // Let user clicks be registered natively
+    }
+
+  }
+}

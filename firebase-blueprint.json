@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "config": {
+      "title": "Configuração da Página",
+      "description": "Dados de layout, cores e links adicionais da página",
+      "type": "object",
+      "properties": {
+        "creatorName": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "primaryColor": { "type": "string" },
+        "footerText": { "type": "string" }
+      },
+      "required": ["creatorName", "primaryColor"]
+    },
+    "product": {
+      "title": "Produto",
+      "description": "Lista de produtos ou ofertas da Shopee cadastrados no mural",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "price": { "type": "number" },
+        "originalPrice": { "type": "number" },
+        "rating": { "type": "number" },
+        "sales": { "type": "string" },
+        "category": { "type": "string" },
+        "imageIcon": { "type": "string" },
+        "link": { "type": "string" },
+        "discountPercentage": { "type": "number" },
+        "couponCode": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "price", "link"]
+    },
+    "analytics": {
+      "title": "Analiticos",
+      "description": "Cliques de tráfego dos botões e produtos",
+      "type": "object",
+      "properties": {
+        "clicks": { "type": "object" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/configs/default": {
+      "schema": "config",
+      "description": "Configuração global do achadinhos"
+    },
+    "/products/{productId}": {
+      "schema": "product",
+      "description": "Produtos cadastrados na base"
+    },
+    "/analytics/clicks": {
+      "schema": "analytics",
+      "description": "Contagem de cliques de canais e produtos"
+    }
+  }
+}
